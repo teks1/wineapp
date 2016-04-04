@@ -7,6 +7,7 @@ class WinesController < ApplicationController
 	end
 
 	def new 
+		@wine = Wine.new
 	end
 
 	def edit
@@ -20,5 +21,5 @@ class WinesController < ApplicationController
 
 	def destroy
 	end
-	
+
 end
