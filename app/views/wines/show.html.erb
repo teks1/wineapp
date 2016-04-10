@@ -1,7 +1,7 @@
-<h1>Wine name</h1>
-<pre>
-Perloit
-Style: Red wine
-Country: Iceland
-Year: 2016
-</pre>
+<h1><%= @wine.first.name %></h1>
+<%= @wine.first.style %>
+<%= @wine.first.country %>
+<%= @wine.first.year %>
+
+<%= "Number of ratings 6" %>
+<%= "Average rating: 99.99" %>
