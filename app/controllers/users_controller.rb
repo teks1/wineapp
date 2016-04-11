@@ -1,6 +1,8 @@
 class UsersController < ApplicationController
+	before_action :set_user, only: [:edit, :create, :update, :destroy]
 
 	def index
+		@users = User.sql_find_all
 	end
 
 	def show
@@ -20,6 +22,16 @@ class UsersController < ApplicationController
 	end
 
 	def destroy
+	end
+
+	private
+
+	def set_user
+		@user = User.sql_find_by_id(params[:id])
+	end
+
+	def user_params
+		params.require(:user).permit(:name)
 	end
 
 end

@@ -4,6 +4,11 @@ Rails.application.routes.draw do
   resources :wines
   resources :users
   resources :ratings
+
+  get 'signup', to: 'users#new'
+  get 'signin', to: 'sessions#new'
+  delete 'signout', to: 'sessions#destroy'
+  
   #get 'wines', to: 'wines#index'
 
   # Example of regular route:

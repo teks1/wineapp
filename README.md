@@ -10,6 +10,7 @@ Yleisiä linkkejä:
 * [Linkki sovellukseeni(Index)](https://mighty-scrubland-21610.herokuapp.com/)
 * [Linkki dokumentaatiooni](https://github.com/teks1/wineapp/blob/master/doc/dokumentaatio.pdf)
 
+Viinit toimii melkein täysin(arvosteluiden keskiarvot pitää laskea ja toki kaikenlaista validointia)
 * [Linkki viinien listalle](https://mighty-scrubland-21610.herokuapp.com/wines)
 * [Linkki yhden viinin sivulle](https://mighty-scrubland-21610.herokuapp.com/wines/1)
 * [Linkki uuden viinin luomiseen](https://mighty-scrubland-21610.herokuapp.com/wines/new)

@@ -1,30 +1,51 @@
 class WinesController < ApplicationController
+	before_action :set_wine, only: [:show, :edit, :update, :destroy]
+	before_action :set_styles, only: [:new, :edit]
 
 	def index
-		@wines = Wine.find_by_sql "SELECT * FROM wines"
+		@wines = Wine.sql_find_all
 	end
 
 	def show
-		@wine = Wine.find_by_sql ["SELECT * FROM wines WHERE wine_id = #{params[:id]}"]
+		
 	end
 
 	def new 
 		@wine = Wine.new
-		@styles = ["Red wine", "White wine", "Rose wine", "Sparkling wine", "Champagne", "Desert wine"]
 	end
 
 	def edit
+		
 	end
 
 	def create
+		@wine = Wine.sql_create(wine_params)
+		redirect_to wines_path, notice: "Wine was created"
 	end
 
 	def update
+		@wine = Wine.sql_update(params[:id], wine_params)
+		
+		redirect_to wines_path, notice: "Wine was edited"
 	end
 
 	def destroy
-		Wine.find_by_sql ["DELETE FROM wines WHERE wine_id = #{params[:id]}"]
-		redirect_to wines_path, notice: "Wine deleted"
+		Wine.sql_delete(params[:id])
+		redirect_to wines_path, notice: "Wine was deleted"
+	end
+
+	private
+
+	def set_wine
+		@wine = Wine.sql_find_by_id(params[:id])
+	end
+
+	def set_styles
+		@styles = ["Red wine", "White wine", "Rose wine", "Sparkling wine", "Champagne", "Dessert wine"]
+	end
+
+	def wine_params
+		params.require(:wine).permit(:name, :style, :country, :year)
 	end
 
 end
