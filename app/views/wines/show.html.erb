@@ -1,7 +1,16 @@
-<h1><%= @wine.first.name %></h1>
-<%= @wine.first.style %>
-<%= @wine.first.country %>
-<%= @wine.first.year %>
+<h1>Wine: <%= @wine.first.name %></h1>
+<p>
+	<strong>Style:</strong>
+	<%= @wine.first.style %>
+</p>
+<p>
+	<strong>Country:</strong>
+	<%= @wine.first.country %>
+</p>
+<p>
+	<strong>Year:</strong>
+	<%= @wine.first.year %>
+</p>
 
-<%= "Number of ratings 6" %>
-<%= "Average rating: 99.99" %>
+<p><%= "Number of ratings 6" %></p>
+<p><%= "Average rating: 99.99" %></p>
