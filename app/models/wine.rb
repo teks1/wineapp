@@ -6,7 +6,7 @@ class Wine < ActiveRecord::Base
 	end
 
 	def self.sql_find_by_id(id)
-		Wine.find_by_sql "SELECT * FROM wines WHERE wine_id = #{id}"
+		Wine.find_by_sql("SELECT * FROM wines WHERE wine_id = #{id}").first
 	end
 
 	def self.sql_delete(id)
@@ -18,7 +18,7 @@ class Wine < ActiveRecord::Base
 	end
 
 	def self.sql_update(id, params)
-		Wine.find_by_sql "UPDATE wines SET name = '#{params[:name]}', style = '#{params[:style]}', country = '#{params[:country]}',year = #{params[:year]} WHERE wine_id = #{id}"
+		Wine.find_by_sql "UPDATE wines SET name = '#{params[:name]}', style = '#{params[:style]}', country = '#{params[:country]}', year = #{params[:year]} WHERE wine_id = #{id}"
 	end
 
 end

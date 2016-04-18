@@ -1,6 +1,7 @@
-<h1>(Username)</h1>
+<h1><%= @user.username %></h1>
 <pre>
 Ratings I have made
-
-Edit account | Delete account
 </pre>
+
+<%= link_to 'Edit', edit_user_path, class:"btn-warning btn-sm" %> | 
+<%= link_to 'Delete account', @user, method: :delete, data: {cofirm: 'Are you sure?'}, class:"btn-danger btn-sm" %>

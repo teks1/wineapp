@@ -19,6 +19,7 @@ class WinesController < ApplicationController
 	end
 
 	def create
+		byebug
 		@wine = Wine.sql_create(wine_params)
 		redirect_to wines_path, notice: "Wine was created"
 	end

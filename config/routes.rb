@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :wines
   resources :users
   resources :ratings
+  resource :session, only: [:new, :create, :destroy]
 
   get 'signup', to: 'users#new'
   get 'signin', to: 'sessions#new'

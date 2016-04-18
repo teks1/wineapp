@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-	before_action :set_user, only: [:edit, :create, :update, :destroy]
+	before_action :set_user, only: [:edit, :show, :update, :destroy]
 
 	def index
 		@users = User.sql_find_all
@@ -16,12 +16,18 @@ class UsersController < ApplicationController
 	end
 
 	def create
+		@user = User.sql_create(user_params)
+		redirect_to @user, notice: "Account was created"
 	end
 
 	def update
+		@user = User.sql_update(params[:id], user_params)
+		redirect_to user_path, notice: "Account was edited"
 	end
 
 	def destroy
+		User.sql_delete(params[:id])
+		redirect_to root_path, notice: "User was deleted"
 	end
 
 	private
@@ -31,7 +37,7 @@ class UsersController < ApplicationController
 	end
 
 	def user_params
-		params.require(:user).permit(:name)
+		params.require(:user).permit(:username, :password)
 	end
 
 end

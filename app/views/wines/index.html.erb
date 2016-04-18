@@ -13,13 +13,13 @@
 	<tbody>
 		<% @wines.each do |wine| %>
 			<tr>
-				<td><%= link_to wine.name, wine %></td>
+				<td><%= link_to wine.name, wine, class:"btn btn-default btn-sm" %></td>
 				<td><%= wine.style %></td>
 				<td><%= wine.country %></td>
 				<td><%= wine.year %></td>
 				<td>99.99(tämä kohta kesken)</td>
-				<td><%= link_to 'Edit', edit_wine_path(wine) %></td>
-				<td><%= link_to 'Destroy', wine, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+				<td><%= link_to 'Edit', edit_wine_path(wine), class:"btn btn-warning btn-sm" %></td>
+				<td><%= link_to 'Destroy', wine, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-danger btn-sm" %></td>
 			</tr>
 		<% end %>
 	</tbody>
