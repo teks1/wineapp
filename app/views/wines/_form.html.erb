@@ -9,7 +9,7 @@
 	</div>
 	<div class ="field">
 		<%= f.label :country %><br>
-		<%= f.text_field :country %><br>
+		<%= f.select :country, options_for_select(@countries) %><br>
 	</div>
 	<div class="field">
 		<%= f.label :year %><br>

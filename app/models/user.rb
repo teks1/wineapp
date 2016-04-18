@@ -35,4 +35,13 @@ class User < ActiveRecord::Base
 		user.password == BCrypt::Engine.hash_secret(password, password_salt)
 	end
 
+	def self.validate_parameters(params)
+		params[:username].present? and params[:password].present?
+
+	end
+
+	def self. validate_password_length(password)
+		password.lenght < 9
+	end
+
 end

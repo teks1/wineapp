@@ -1,6 +1,8 @@
 class WinesController < ApplicationController
 	before_action :set_wine, only: [:show, :edit, :update, :destroy]
 	before_action :set_styles, only: [:new, :edit]
+	before_action :set_countries, only: [:new, :edit]
+	before_action :ensure_that_user_signed_in, except: [:index, :show]
 
 	def index
 		@wines = Wine.sql_find_all
@@ -19,15 +21,21 @@ class WinesController < ApplicationController
 	end
 
 	def create
-		byebug
-		@wine = Wine.sql_create(wine_params)
-		redirect_to wines_path, notice: "Wine was created"
+		if Wine.validate_parameters(wine_params)
+			@wine = Wine.sql_create(wine_params)
+			redirect_to wines_path, notice: "Wine was created"
+		else
+			redirect_to :back, notice: "Wine name was duplicate or empty or year was empty"
+		end
 	end
 
 	def update
-		@wine = Wine.sql_update(params[:id], wine_params)
-		
-		redirect_to wines_path, notice: "Wine was edited"
+		if Wine.validate_parameters(wine_params)
+			@wine = Wine.sql_update(params[:id], wine_params)		
+			redirect_to wines_path, notice: "Wine was edited"
+		else
+			redirect_to :back, notice: "Wine name was duplicate or empty or year was empty"
+		end
 	end
 
 	def destroy
@@ -43,6 +51,10 @@ class WinesController < ApplicationController
 
 	def set_styles
 		@styles = ["Red wine", "White wine", "Rose wine", "Sparkling wine", "Champagne", "Dessert wine"]
+	end
+
+	def set_countries
+		@countries = ["Argentina", "Australia", "Chile", "France", "Germany", "Italy", "New Zealand", "Portugal", "Spain", "United States", "Other"]
 	end
 
 	def wine_params

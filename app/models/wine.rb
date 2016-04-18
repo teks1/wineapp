@@ -21,4 +21,8 @@ class Wine < ActiveRecord::Base
 		Wine.find_by_sql "UPDATE wines SET name = '#{params[:name]}', style = '#{params[:style]}', country = '#{params[:country]}', year = #{params[:year]} WHERE wine_id = #{id}"
 	end
 
+	def self.validate_parameters(params)
+		params[:name].present? and params[:year].present?
+	end
+
 end
