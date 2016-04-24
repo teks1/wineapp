@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
 	end
 
 	def self.sql_delete(id)
+		Rating.find_by_sql "DELETE FROM ratings WHERE user_id = #{id}"
 		User.find_by_sql "DELETE FROM users WHERE user_id = #{id}"
 	end
 
@@ -36,11 +37,11 @@ class User < ActiveRecord::Base
 	end
 
 	def self.validate_parameters(params)
-		params[:username].present? and params[:password].present?
+		params[:username].present? && params[:password].present? && sql_find_by_username(params[:username]).nil?
 
 	end
 
-	def self. validate_password_length(password)
+	def self.validate_password_length(password)
 		password.lenght < 9
 	end
 

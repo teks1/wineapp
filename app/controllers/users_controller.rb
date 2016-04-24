@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+	
 	before_action :set_user, only: [:edit, :show, :update, :destroy]
 	before_action :ensure_that_user_signed_in, except: [:new, :create]
 	before_action :ensure_that_user_is_admin, only: [:destroy, :index]
@@ -24,7 +25,7 @@ class UsersController < ApplicationController
 			@user = User.sql_create(user_params)
 			redirect_to :root, notice: "Account was created"
 		else
-			redirect_to :back, notice: "Username and/or password can't be empty"
+			redirect_to :back, notice: "Username and/or password can't be empty or username taken"
 		end
 	end
 
@@ -49,7 +50,6 @@ class UsersController < ApplicationController
 	end
 
 	def ensure_that_current_user_or_admin_sees_own_page
-		byebug
 		redirect_to :root unless current_user.id == params[:id].to_i
 	end
 

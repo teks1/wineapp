@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   resources :users
   resources :ratings, only: [:new, :create, :destroy, :index]
   resource :session, only: [:new, :create, :destroy]
+  resources :styles, only: [:index, :edit]
 
   get 'signup', to: 'users#new'
   get 'signin', to: 'sessions#new'

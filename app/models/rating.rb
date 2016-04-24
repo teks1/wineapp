@@ -6,6 +6,10 @@ class Rating < ActiveRecord::Base
 		Rating.find_by_sql "SELECT * FROM ratings"
 	end
 
+	def self.sql_find_all_test
+		Rating.find_by_sql "SELECT ratings.rating, wines.name AS wine_name FROM ratings FULL JOIN wines ON ratings.wine_id = wines.wine_id"
+	end
+
 	def self.sql_find_by_id(id)
 		Rating.find_by_sql ("SELECT * FROM ratings WHERE rating_id = #{id}").first
 	end
@@ -24,6 +28,10 @@ class Rating < ActiveRecord::Base
 
 	def self.sql_delete(id)
 		Rating.find_by_sql "DELETE FROM ratings WHERE rating_id = #{id}"
+	end
+
+	def self.validate_rating(rating)
+		rating.to_i.between?(0,100)
 	end
 
 end

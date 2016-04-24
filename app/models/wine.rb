@@ -10,6 +10,7 @@ class Wine < ActiveRecord::Base
 	end
 
 	def self.sql_delete(id)
+		Rating.find_by_sql "DELETE FROM ratings WHERE wine_id = #{id}"
 		Wine.find_by_sql "DELETE FROM wines WHERE wine_id = #{id}"
 	end
 
@@ -22,7 +23,7 @@ class Wine < ActiveRecord::Base
 	end
 
 	def self.validate_parameters(params)
-		params[:name].present? and params[:year].present?
+		params[:name].present?
 	end
 
 	def average_rating
