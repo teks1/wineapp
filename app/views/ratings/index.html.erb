@@ -12,7 +12,9 @@
 			<tr>
 				<td><%= rating.wine.name %></td>
 				<td><%= rating.rating %></td>
-				<td><%= link_to 'DELETE', rating, method: :delete, data: {confirm: "Are you sure"}, class:"btn-danger btn-sm" %></td>
+				<% if admin_user %>
+					<td><%= link_to 'DELETE', rating, method: :delete, data: {confirm: "Are you sure"}, class:"btn-danger btn-sm" %></td>
+				<% end %>
 			</tr>
 		<% end %>
 	</tbody>

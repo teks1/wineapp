@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160418171558) do
+ActiveRecord::Schema.define(version: 20160424155017) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,10 +22,18 @@ ActiveRecord::Schema.define(version: 20160418171558) do
     t.integer "wine_id"
   end
 
+  create_table "styles", primary_key: "style_id", force: :cascade do |t|
+    t.string "style",       limit: 32,                                null: false
+    t.text   "description",            default: "No description yet"
+  end
+
+  add_index "styles", ["style"], name: "styles_style_key", unique: true, using: :btree
+
   create_table "users", primary_key: "user_id", force: :cascade do |t|
-    t.string "username",      limit: 25, null: false
-    t.string "password",      limit: 64, null: false
-    t.string "password_salt", limit: 64, null: false
+    t.string  "username",      limit: 25,                 null: false
+    t.string  "password",      limit: 64,                 null: false
+    t.string  "password_salt", limit: 64,                 null: false
+    t.boolean "admin",                    default: false
   end
 
   add_index "users", ["username"], name: "users_username_key", unique: true, using: :btree

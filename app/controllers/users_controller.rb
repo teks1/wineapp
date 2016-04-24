@@ -1,6 +1,8 @@
 class UsersController < ApplicationController
 	before_action :set_user, only: [:edit, :show, :update, :destroy]
 	before_action :ensure_that_user_signed_in, except: [:new, :create]
+	before_action :ensure_that_user_is_admin, only: [:destroy, :index]
+	before_action :ensure_that_current_user_or_admin_sees_own_page, only: [:show, :edit]
 
 	def index
 		@users = User.sql_find_all
@@ -44,6 +46,11 @@ class UsersController < ApplicationController
 
 	def user_params
 		params.require(:user).permit(:username, :password)
+	end
+
+	def ensure_that_current_user_or_admin_sees_own_page
+		byebug
+		redirect_to :root unless current_user.id == params[:id].to_i
 	end
 
 end

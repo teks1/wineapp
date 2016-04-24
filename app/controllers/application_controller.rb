@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   helper_method :current_user
+  helper_method :admin_user
 
   def current_user
   	return nil if session[:user_id].nil?
@@ -15,7 +16,12 @@ class ApplicationController < ActionController::Base
   end
 
   def admin_user
+  	return false if session[:user_id].nil?
+  	current_user.admin
+  end
 
+  def ensure_that_user_is_admin
+  	redirect_to :root, notice: "Back off, you are not the admin" unless self.admin_user
   end
 
 end

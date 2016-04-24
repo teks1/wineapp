@@ -4,6 +4,7 @@ class WinesController < ApplicationController
 	before_action :set_countries, only: [:new, :edit]
 	before_action :set_years, only: [:new, :edit]
 	before_action :ensure_that_user_signed_in, except: [:index, :show]
+	before_action :ensure_that_user_is_admin, only: [:destroy]
 
 	def index
 		@wines = Wine.sql_find_all

@@ -1,6 +1,7 @@
 class RatingsController < ApplicationController
 
 	before_action :ensure_that_user_signed_in, except: [:index]
+	before_action :ensure_that_user_is_admin, only: [:destroy]
 	
 	def index
 		@ratings = Rating.sql_find_all

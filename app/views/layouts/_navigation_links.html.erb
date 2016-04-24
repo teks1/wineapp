@@ -1,8 +1,10 @@
 <%# add navigation links to this file %>
 <li><%= link_to 'Wines', wines_path %></li>
 <li><%= link_to 'Ratings', ratings_path %></li>
-<% if current_user %>
+<% if admin_user %>
 	<li><%= link_to 'Users', users_path %></li>	
+<% end %>
+<% if current_user %>
 	<li class="nav nav-tabs">
 	<li role="presentation" class="dropdown">
     <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">

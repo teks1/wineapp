@@ -25,4 +25,8 @@ class Wine < ActiveRecord::Base
 		params[:name].present? and params[:year].present?
 	end
 
+	def average_rating
+		ratings.average(:rating)
+	end
+
 end

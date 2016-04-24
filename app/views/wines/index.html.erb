@@ -17,9 +17,17 @@
 				<td><%= wine.style %></td>
 				<td><%= wine.country %></td>
 				<td><%= wine.year %></td>
-				<td>99.99(tämä kohta kesken)</td>
-				<td><%= link_to 'Edit', edit_wine_path(wine), class:"btn btn-warning btn-sm" %></td>
-				<td><%= link_to 'Destroy', wine, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-danger btn-sm" %></td>
+				<td>
+					<% if wine.ratings.empty? %>
+						Wine has no ratings yet
+					<% else %>
+						<%= wine.average_rating %>
+					<% end %>
+				</td>
+				<% if admin_user %>
+					<td><%= link_to 'Edit', edit_wine_path(wine), class:"btn btn-warning btn-sm" %></td>
+					<td><%= link_to 'Destroy', wine, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-danger btn-sm" %></td>
+				<% end %>
 			</tr>
 		<% end %>
 	</tbody>
