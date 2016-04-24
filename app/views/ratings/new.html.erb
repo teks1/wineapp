@@ -1,1 +1,16 @@
 <h1>New rating</h1>
+
+<%= form_for(@rating) do |f| %>
+  <div class="field">
+    <%= f.label :wine %><br>
+    <%= f.select :wine_id, options_from_collection_for_select(@wines, :id, :name) %><br>
+  </div>
+  <div class="field">
+    <%= f.label :score %><br>
+    <%= f.number_field :rating %><br>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+
+<% end %>

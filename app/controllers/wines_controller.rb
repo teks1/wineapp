@@ -2,6 +2,7 @@ class WinesController < ApplicationController
 	before_action :set_wine, only: [:show, :edit, :update, :destroy]
 	before_action :set_styles, only: [:new, :edit]
 	before_action :set_countries, only: [:new, :edit]
+	before_action :set_years, only: [:new, :edit]
 	before_action :ensure_that_user_signed_in, except: [:index, :show]
 
 	def index
@@ -9,7 +10,7 @@ class WinesController < ApplicationController
 	end
 
 	def show
-		
+		@ratings = Rating.sql_find_by_wine_id(params[:id])
 	end
 
 	def new 
@@ -55,6 +56,10 @@ class WinesController < ApplicationController
 
 	def set_countries
 		@countries = ["Argentina", "Australia", "Chile", "France", "Germany", "Italy", "New Zealand", "Portugal", "Spain", "United States", "Other"]
+	end
+
+	def set_years
+		@years = ["2001", "2002", "2003","2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "Unknown"]
 	end
 
 	def wine_params

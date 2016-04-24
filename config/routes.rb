@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   root 'wines#index'
   resources :wines
   resources :users
-  resources :ratings
+  resources :ratings, only: [:new, :create, :destroy, :index]
   resource :session, only: [:new, :create, :destroy]
 
   get 'signup', to: 'users#new'

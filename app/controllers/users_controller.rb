@@ -7,6 +7,7 @@ class UsersController < ApplicationController
 	end
 
 	def show
+		@ratings = Rating.sql_find_by_user_id(params[:id])
 	end
 
 	def new 
@@ -19,7 +20,7 @@ class UsersController < ApplicationController
 	def create
 		if User.validate_parameters(user_params)
 			@user = User.sql_create(user_params)
-			redirect_to @user, notice: "Account was created"
+			redirect_to :root, notice: "Account was created"
 		else
 			redirect_to :back, notice: "Username and/or password can't be empty"
 		end
