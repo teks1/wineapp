@@ -5,8 +5,6 @@ class RatingsController < ApplicationController
 	
 	def index
 		@ratings = Rating.sql_find_all
-		@ratings_test = Rating.sql_find_all_test
-		byebug
 	end
 	
 	def new
