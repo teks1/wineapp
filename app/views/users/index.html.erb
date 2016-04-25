@@ -10,7 +10,6 @@
 		<% @users.each do |user| %>
 			<tr>
 				<td><%= link_to user.username, user, class:"btn btn-default btn-sm" %></td>
-				<td><%= link_to 'Edit', edit_user_path(user), class:"btn btn-warning btn-sm" %> </td>
 				<td><%= link_to 'DELETE USER', user, method: :delete, data: {cofirm: 'Are you sure?'}, class:"btn-danger btn-sm" %></td>
 			</tr>
 		<% end %>
