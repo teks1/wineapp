@@ -24,8 +24,10 @@
 						<%= wine.average_rating %>
 					<% end %>
 				</td>
-				<% if admin_user %>
+				<% if current_user %>
 					<td><%= link_to 'Edit', edit_wine_path(wine), class:"btn btn-warning btn-sm" %></td>
+				<% end %>
+				<% if admin_user %>
 					<td><%= link_to 'Destroy', wine, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-danger btn-sm" %></td>
 				<% end %>
 			</tr>
