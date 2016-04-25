@@ -31,7 +31,7 @@ class Rating < ActiveRecord::Base
 	end
 
 	def self.validate_rating(rating)
-		rating.to_i.between?(0,100)
+		rating.present? && rating.to_i.between?(0,100)
 	end
 
 end

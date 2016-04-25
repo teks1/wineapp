@@ -1,4 +1,4 @@
-class StylesController < ActionController::Base
+class StylesController < ApplicationController
 	
 	before_action :ensure_that_user_is_admin, except: [:index]
 

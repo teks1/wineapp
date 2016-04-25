@@ -1,0 +1,18 @@
+<h1>Wine styles</h1>
+<table class="table table-hover">
+	<thead>
+		<tr>
+			<th>Wine style</th>
+			<th>Description</th>
+		</tr>
+	</thead>
+
+	<tbody>
+		<% @styles.each do |style| %>
+			<tr>
+				<td><%= style.name %></td>
+				<td><%= style.description %></td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>

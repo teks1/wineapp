@@ -1,8 +1,12 @@
 # Tietokantasovelluksen esittelysivu
 
 Sisään voi kirjautua näillä tiedoilla
-* Username: testi
+
+* Username(tavallinen käyttäjä): testi
 * Password: testi
+
+* Username(admin käyttäjä): ylijumala
+* Password: salainen
 
 Yleisiä linkkejä:
 
