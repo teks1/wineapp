@@ -50,7 +50,7 @@ class UsersController < ApplicationController
 	end
 
 	def ensure_that_current_user_or_admin_sees_own_page
-		redirect_to :root unless current_user.id == params[:id].to_i
+		redirect_to :root unless current_user.id == params[:id].to_i || admin_user
 	end
 
 end

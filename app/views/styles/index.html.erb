@@ -10,7 +10,7 @@
 	<tbody>
 		<% @styles.each do |style| %>
 			<tr>
-				<td><%= style.name %></td>
+				<td><%= link_to style.name, edit_style_path(style) %></td>
 				<td><%= style.description %></td>
 			</tr>
 		<% end %>
