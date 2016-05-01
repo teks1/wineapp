@@ -1,9 +1,9 @@
 class WinesController < ApplicationController
 	
 	before_action :set_wine, only: [:show, :edit, :update, :destroy]
-	before_action :set_styles, only: [:new, :edit]
 	before_action :set_countries, only: [:new, :edit]
 	before_action :set_years, only: [:new, :edit]
+	before_action :set_styles_for_template, only: [:new, :edit]
 	before_action :ensure_that_user_signed_in, except: [:index, :show]
 	before_action :ensure_that_user_is_admin, only: [:destroy]
 
@@ -24,6 +24,7 @@ class WinesController < ApplicationController
 	end
 
 	def create
+		byebug
 		if Wine.validate_parameters(wine_params)
 			@wine = Wine.sql_create(wine_params)
 			redirect_to wines_path, notice: "Wine was created"
@@ -52,10 +53,6 @@ class WinesController < ApplicationController
 		@wine = Wine.sql_find_by_id(params[:id])
 	end
 
-	def set_styles
-		@styles = ["Red wine", "White wine", "Rose wine", "Sparkling wine", "Champagne", "Dessert wine"]
-	end
-
 	def set_countries
 		@countries = ["Argentina", "Australia", "Chile", "France", "Germany", "Italy", "New Zealand", "Portugal", "Spain", "United States", "Other"]
 	end
@@ -65,7 +62,11 @@ class WinesController < ApplicationController
 	end
 
 	def wine_params
-		params.require(:wine).permit(:name, :style, :country, :year)
+		params.require(:wine).permit(:name, :style_id, :country, :year)
+	end
+
+	def set_styles_for_template
+		@styles = Style.sql_find_all
 	end
 
 end

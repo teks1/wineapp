@@ -1,5 +1,6 @@
 class Wine < ActiveRecord::Base
 	has_many :ratings, dependent: :destroy
+	belongs_to :style
 
 	def self.sql_find_all
 		Wine.find_by_sql "SELECT * FROM wines"
@@ -15,11 +16,11 @@ class Wine < ActiveRecord::Base
 	end
 
 	def self.sql_create(params)
-		Wine.find_by_sql "INSERT INTO wines (name, style, country, year) VALUES ('#{params[:name]}', '#{params[:style]}', '#{params[:country]}', #{params[:year]})"
+		Wine.find_by_sql "INSERT INTO wines (name, style_id, country, year) VALUES ('#{params[:name]}', #{params[:style_id]}, '#{params[:country]}', #{params[:year]})"
 	end
 
 	def self.sql_update(id, params)
-		Wine.find_by_sql "UPDATE wines SET name = '#{params[:name]}', style = '#{params[:style]}', country = '#{params[:country]}', year = #{params[:year]} WHERE wine_id = #{id}"
+		Wine.find_by_sql "UPDATE wines SET name = '#{params[:name]}', style_id = #{params[:style]}, country = '#{params[:country]}', year = #{params[:year]} WHERE wine_id = #{id}"
 	end
 
 	def self.validate_parameters(params)

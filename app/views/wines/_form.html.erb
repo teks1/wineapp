@@ -4,8 +4,8 @@
 		<%= f.text_field :name %><br>
 	</div>
 	<div class ="field">
-		<%= f.label :style %><br>
-		<%= f.select :style, options_for_select(@styles) %><br>
+		<%= f.label :style_id %><br>
+		<%= f.select :style_id, options_from_collection_for_select(@styles, :id, :name) %><br>
 	</div>
 	<div class ="field">
 		<%= f.label :country %><br>

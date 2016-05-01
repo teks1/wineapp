@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160424212334) do
+ActiveRecord::Schema.define(version: 20160427125653) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,14 +37,15 @@ ActiveRecord::Schema.define(version: 20160424212334) do
   add_index "users", ["username"], name: "users_username_key", unique: true, using: :btree
 
   create_table "wines", primary_key: "wine_id", force: :cascade do |t|
-    t.string  "name",    limit: 120, null: false
-    t.string  "style",   limit: 60,  null: false
-    t.string  "country", limit: 60,  null: false
+    t.string  "name",     limit: 120, null: false
+    t.string  "country",  limit: 60,  null: false
     t.integer "year"
+    t.integer "style_id"
   end
 
   add_index "wines", ["name"], name: "wines_name_key", unique: true, using: :btree
 
   add_foreign_key "ratings", "users", primary_key: "user_id", name: "ratings_user_id_fkey"
   add_foreign_key "ratings", "wines", primary_key: "wine_id", name: "ratings_wine_id_fkey"
+  add_foreign_key "wines", "styles", primary_key: "style_id", name: "wines_style_id_fkey"
 end
