@@ -3,7 +3,7 @@ class Rating < ActiveRecord::Base
 	belongs_to :user
 
 	def self.sql_find_all
-		Rating.find_by_sql "SELECT * FROM ratings"
+		Rating.find_by_sql "SELECT ratings.rating_id, ratings.rating, wines.name AS wine_name FROM ratings JOIN wines ON ratings.wine_id = wines.wine_id"
 	end
 
 	def self.sql_find_all_test

@@ -24,21 +24,20 @@ class WinesController < ApplicationController
 	end
 
 	def create
-		byebug
 		if Wine.validate_parameters(wine_params)
 			@wine = Wine.sql_create(wine_params)
 			redirect_to wines_path, notice: "Wine was created"
 		else
-			redirect_to :back, notice: "Wine name was duplicate or empty or year was empty"
+			redirect_to :back, notice: "Wine name was duplicate or empty"
 		end
 	end
 
 	def update
 		if Wine.validate_parameters(wine_params)
-			@wine = Wine.sql_update(params[:id], wine_params)		
+			@wine = Wine.sql_update(params[:id], wine_params)
 			redirect_to wines_path, notice: "Wine was edited"
 		else
-			redirect_to :back, notice: "Wine name was duplicate or empty or year was empty"
+			redirect_to :back, notice: "Wine name was duplicate or empty"
 		end
 	end
 

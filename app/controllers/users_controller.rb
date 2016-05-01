@@ -21,22 +21,30 @@ class UsersController < ApplicationController
 	end
 
 	def create
-		if User.validate_parameters(user_params)
+		if User.validate_parameters_for_create(user_params)
 			@user = User.sql_create(user_params)
 			redirect_to :root, notice: "Account was created"
 		else
-			redirect_to :back, notice: "Username and/or password can't be empty or username taken"
+			redirect_to :back, notice: "Username and/or password can't be empty or username taken or password was too short"
 		end
 	end
 
 	def update
-		@user = User.sql_update(params[:id], user_params)
-		redirect_to user_path, notice: "Account was edited"
+		if User.validate_parameters_for_update(user_params)
+			@user = User.sql_update(params[:id], user_params)
+			redirect_to user_path, notice: "Account was edited"
+		else
+			redirect_to :back, notice: "Username and/or password can't be empty or username taken or password was too short"
+		end
 	end
 
 	def destroy
-		User.sql_delete(params[:id])
-		redirect_to users_path, notice: "User was deleted"
+		if current_user[:id] == params[:id].to_i
+			redirect_to :back, notice: "Don't delete admin-user"
+		else
+			User.sql_delete(params[:id])
+			redirect_to users_path, notice: "User was deleted"
+		end		
 	end
 
 	private

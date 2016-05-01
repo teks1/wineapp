@@ -3,7 +3,7 @@ class Wine < ActiveRecord::Base
 	belongs_to :style
 
 	def self.sql_find_all
-		Wine.find_by_sql "SELECT * FROM wines"
+		Wine.find_by_sql "SELECT wines.wine_id, wines.name as name, wines.country, wines.year, styles.name as style_name FROM wines JOIN styles ON wines.style_id = styles.style_id"
 	end
 
 	def self.sql_find_by_id(id)
@@ -20,7 +20,7 @@ class Wine < ActiveRecord::Base
 	end
 
 	def self.sql_update(id, params)
-		Wine.find_by_sql "UPDATE wines SET name = '#{params[:name]}', style_id = #{params[:style]}, country = '#{params[:country]}', year = #{params[:year]} WHERE wine_id = #{id}"
+		Wine.find_by_sql "UPDATE wines SET name = '#{params[:name]}', style_id = #{params[:style_id]}, country = '#{params[:country]}', year = #{params[:year]} WHERE wine_id = #{id}"
 	end
 
 	def self.validate_parameters(params)

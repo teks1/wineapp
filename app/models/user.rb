@@ -36,13 +36,12 @@ class User < ActiveRecord::Base
 		user.password == BCrypt::Engine.hash_secret(password, password_salt)
 	end
 
-	def self.validate_parameters(params)
-		params[:username].present? && params[:password].present? && sql_find_by_username(params[:username]).nil?
-
+	def self.validate_parameters_for_create(params)
+		params[:username].present? && params[:password].present? && sql_find_by_username(params[:username]).nil? && params[:password].length > 8
 	end
 
-	def self.validate_password_length(password)
-		password.lenght < 9
+	def self.validate_parameters_for_update(params)
+		params[:username].present? && params[:password].present? && params[:password].length > 8
 	end
 
 end
