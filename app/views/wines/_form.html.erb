@@ -5,15 +5,15 @@
 	</div>
 	<div class ="field">
 		<%= f.label :style_id %><br>
-		<%= f.select :style_id, options_from_collection_for_select(@styles, :id, :name) %><br>
+		<%= f.select :style_id, options_from_collection_for_select(@styles, :id, :name, selected: @wine.style_id) %><br>
 	</div>
 	<div class ="field">
 		<%= f.label :country %><br>
-		<%= f.select :country, options_for_select(@countries) %><br>
+		<%= f.select :country, options_for_select(@countries, selected: @wine.country) %><br>
 	</div>
 	<div class="field">
 		<%= f.label :year %><br>
-		<%= f.select :year, options_for_select(@years) %><br>
+		<%= f.select :year, options_for_select(@years, selected: @wine.year) %><br>
 	</div>
 	<div class="actions">
 		<%= f.submit %>

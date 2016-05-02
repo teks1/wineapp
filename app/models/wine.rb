@@ -7,7 +7,7 @@ class Wine < ActiveRecord::Base
 	end
 
 	def self.sql_find_by_id(id)
-		Wine.find_by_sql("SELECT * FROM wines WHERE wine_id = #{id}").first
+		Wine.find_by_sql("SELECT wines.wine_id, wines.name as name, wines.country, wines.year, styles.name as style_name, styles.style_id as style_id FROM wines JOIN styles ON wines.style_id = styles.style_id WHERE wine_id = #{id}").first
 	end
 
 	def self.sql_delete(id)
