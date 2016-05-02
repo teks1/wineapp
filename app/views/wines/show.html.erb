@@ -18,6 +18,8 @@
 </p>
 
 <p>
-	<strong>Average rating:</strong>
-	<%= @wine.average_rating %>
+	<% if @ratings.count != 0 %>
+		<strong>Average rating:</strong>
+		<%= @wine.average_rating %>
+	<% end %>
 </p>
