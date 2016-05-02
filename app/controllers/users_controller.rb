@@ -22,8 +22,10 @@ class UsersController < ApplicationController
 
 	def create
 		if User.validate_parameters_for_create(user_params)
-			@user = User.sql_create(user_params)
-			redirect_to :root, notice: "Account was created"
+			User.sql_create(user_params)
+			@u = User.sql_find_by_username(params[:username])
+			session[:user_id] = @user.id
+			redirect_to @user, notice: "Account was created"
 		else
 			redirect_to :back, notice: "Username and/or password can't be empty or username taken or password was too short"
 		end
