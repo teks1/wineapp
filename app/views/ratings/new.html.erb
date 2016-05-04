@@ -7,7 +7,7 @@
   </div>
   <div class="field">
     <%= f.label :score %> (0-100)<br>
-    <%= f.number_field :rating %><br>
+    <%= f.number_field :rating, required: :true, min: 0, max: 100 %><br>
   </div>
   <div class="actions">
     <%= f.submit %>

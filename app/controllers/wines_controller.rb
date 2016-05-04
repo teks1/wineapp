@@ -24,25 +24,25 @@ class WinesController < ApplicationController
 	end
 
 	def create
-		if Wine.validate_parameters(wine_params)
+		if validate_fields_for_not_being_empty && Wine.validate_wine_name_to_be_unique(wine_params[:name])
 			@wine = Wine.sql_create(wine_params)
 			redirect_to wines_path, notice: "Wine was created"
 		else
-			redirect_to :back, notice: "Wine name was duplicate or empty"
+			redirect_to :back, notice: "Wine name was duplicate"
 		end
 	end
 
 	def update
-		if Wine.validate_parameters(wine_params)
-			@wine = Wine.sql_update(params[:id], wine_params)
+		if validate_fields_for_not_being_empty && Wine.validate_wine_name_to_be_unique(wine_params[:name], @wine.name)
+			@wine.sql_update(wine_params)
 			redirect_to wines_path, notice: "Wine was edited"
 		else
-			redirect_to :back, notice: "Wine name was duplicate or empty"
+			redirect_to :back, notice: "Wine name was duplicate"
 		end
 	end
 
 	def destroy
-		Wine.sql_delete(params[:id])
+		@wine.sql_delete
 		redirect_to wines_path, notice: "Wine was deleted"
 	end
 
@@ -66,6 +66,10 @@ class WinesController < ApplicationController
 
 	def set_styles_for_template
 		@styles = Style.sql_find_all
+	end
+
+	def validate_fields_for_not_being_empty
+		wine_params[:name].present?
 	end
 
 end

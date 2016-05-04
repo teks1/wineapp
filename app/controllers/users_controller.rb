@@ -21,30 +21,31 @@ class UsersController < ApplicationController
 	end
 
 	def create
-		if User.validate_parameters_for_create(user_params)
+		#I don't shout empty fields or short password error here, because view checks it, 
+		#but I still double check it here so there is no way illegal values get to the database
+		if validate_fields_for_not_being_empty_or_password_being_too_short && User.validate_username_to_be_unique(user_params[:username])
 			User.sql_create(user_params)
-			@u = User.sql_find_by_username(params[:username])
-			session[:user_id] = @user.id
-			redirect_to @user, notice: "Account was created"
+			redirect_to :root, notice: "Account was created"
 		else
-			redirect_to :back, notice: "Username and/or password can't be empty or username taken or password was too short"
+			redirect_to :back, notice: "Username is taken"
 		end
 	end
 
 	def update
-		if User.validate_parameters_for_update(user_params)
-			@user = User.sql_update(params[:id], user_params)
+		if validate_fields_for_not_being_empty_or_password_being_too_short && User.validate_username_to_be_unique(user_params[:username], current_user.username)
+			@user.sql_update(user_params)
 			redirect_to user_path, notice: "Account was edited"
 		else
-			redirect_to :back, notice: "Username and/or password can't be empty or username taken or password was too short"
+			redirect_to :back, notice: "Username is taken"
 		end
 	end
 
 	def destroy
+		#only admin can delete users and we don't want admin to delete himself
 		if current_user[:id] == params[:id].to_i
 			redirect_to :back, notice: "Don't delete admin-user"
 		else
-			User.sql_delete(params[:id])
+			@user.sql_delete
 			redirect_to users_path, notice: "User was deleted"
 		end		
 	end
@@ -61,6 +62,10 @@ class UsersController < ApplicationController
 
 	def ensure_that_current_user_or_admin_sees_own_page
 		redirect_to :root unless current_user.id == params[:id].to_i || admin_user
+	end
+
+	def validate_fields_for_not_being_empty_or_password_being_too_short
+		user_params[:username].present? && user_params[:password].present? && user_params[:password].length > 8
 	end
 
 end

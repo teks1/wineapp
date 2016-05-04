@@ -1,7 +1,7 @@
 <%= form_for(@wine) do |f| %>
 	<div class="field">
 		<%= f.label :name %><br>
-		<%= f.text_field :name %><br>
+		<%= f.text_field :name, required: :true, pattern: '[\w ]+' %><br>
 	</div>
 	<div class ="field">
 		<%= f.label :style_id %><br>

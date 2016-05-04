@@ -1,5 +1,6 @@
 class RatingsController < ApplicationController
 
+	before_action :set_rating, only: [:destroy]
 	before_action :ensure_that_user_signed_in, except: [:index]
 	before_action :ensure_that_user_is_admin, only: [:destroy]
 	
@@ -12,9 +13,8 @@ class RatingsController < ApplicationController
 		@wines = Wine.sql_find_all 
 	end
 
-	def create		
-		
-		if Rating.validate_rating(rating_params[:rating])
+	def create
+		if validate_fields_for_not_being_empty && validate_rating_range_is_correct
 			@rating = Rating.sql_create(current_user.id, rating_params)
 			redirect_to ratings_path, notice: "Rating was created"
 		else
@@ -23,7 +23,7 @@ class RatingsController < ApplicationController
 	end
 
 	def destroy
-		Rating.sql_delete(params[:id])
+		@rating.sql_delete
 		redirect_to ratings_path, notice: "Rating was deleted"
 	end
 
@@ -35,6 +35,14 @@ class RatingsController < ApplicationController
 
 	def rating_params
 		params.require(:rating).permit(:rating, :wine_id)
+	end
+
+	def validate_fields_for_not_being_empty
+		rating_params[:rating].present? && rating_params[:wine_id].present?
+	end
+
+	def validate_rating_range_is_correct
+		rating_params[:rating].to_i.between?(0,100)
 	end
 
 end

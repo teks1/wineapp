@@ -11,8 +11,8 @@ class StylesController < ApplicationController
 	end
 
 	def update
-		if Style.validate_parameters(style_params)
-			@style = Style.sql_update(params[:id], style_params)
+		if style_params[:name].present?
+			@style.sql_update(style_params)
 			redirect_to styles_path, notice: "Style was edited"
 		else
 			redirect_to :back, notice: "Don't leave style name blank"

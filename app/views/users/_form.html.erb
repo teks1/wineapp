@@ -2,11 +2,11 @@
 
   	<div class="field">
     	<%= f.label :username %><br>
-    	<%= f.text_field :username %>
+    	<%= f.text_field :username, required: :true %>
   	</div>
   	<div class="field">
-  		<%= f.label :password %>(min: 9 characters)<br>
-  		<%= f.password_field :password %>
+  		<%= f.label :password %> (min: 9 characters)<br>
+  		<%= f.password_field :password, required: :true, pattern: '[\S]{9,24}' %>
   	</div>
   
   	<div class="actions">
